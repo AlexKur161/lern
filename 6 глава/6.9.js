@@ -1,3 +1,7 @@
+// декоратор - специальная функция, которая принимает другую функцию и изменяет её поведение.
+
+
+
 /* Создайте декоратор spy(func), который должен возвращать обёртку, которая сохраняет все вызовы функции в своём свойстве calls.
 
 Каждый вызов должен сохраняться как массив аргументов.
@@ -45,3 +49,34 @@ f1500("test2"); // показывает "test" после 1500 мс
 /* Другими словами, delay(f, ms) возвращает вариант f с «задержкой на ms мс».
 
 В приведённом выше коде f – функция с одним аргументом, но ваше решение должно передавать все аргументы и контекст this. */
+
+
+function throttle(func, ms) {
+
+  let isThrottled = false,
+    savedArgs,
+    savedThis;
+
+  function wrapper() {
+
+    if (isThrottled) { 
+      savedArgs = arguments;
+      savedThis = this;
+      return;
+    }
+
+    func.apply(this, arguments); 
+
+    isThrottled = true;
+
+    setTimeout(function() {
+      isThrottled = false;
+      if (savedArgs) {
+        wrapper.apply(savedThis, savedArgs);
+        savedArgs = savedThis = null;
+      }
+    }, ms);
+  }
+
+  return wrapper;
+}
