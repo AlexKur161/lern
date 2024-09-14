@@ -20,3 +20,23 @@ let user = {
 };
 
 askPassword(() => user.login(true), () => user.login(false));
+
+// свой bind
+let user = {
+  firstName: "Alex"
+};
+function myBind(func, context, ...arg) {
+	return function() {
+  
+		return func.call(context, ...arg);
+	}
+}
+
+
+function test(a, b) {
+console.log(a)
+	console.log(this.firstName + a + b);
+}
+
+test.myBind = myBind(test, user, ' test a', ' test b');
+test.myBind();
