@@ -22,7 +22,7 @@ let user = {
 askPassword(() => user.login(true), () => user.login(false));
 
 // свой bind
-let user = {
+let user2 = {
   firstName: "Alex"
 };
 function myBind(func, context, ...arg) {
