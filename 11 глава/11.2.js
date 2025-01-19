@@ -33,3 +33,27 @@ function showCircle(cx, cy, radius) {
     }, 0);
   })
 }
+
+
+fetch('https://jsonplaceholder.typicode.com/poаsts')
+.then(response => response.json())
+.then(function(response){
+  
+})
+.catch(function(response){
+  console.log('сработал reject')
+})
+let promise1 = new Promise(function(resolve,reject) {
+  try{
+    console.log('начал выполнение')
+    let items = fetch('https://jsonplaceholder.typicode.com/posts');
+    console.log(items)
+    resolve(items.json())
+  }
+  catch(err){
+    console.log('сработало')
+    reject(new Error('Ошибка'))
+  }
+})
+.then(response => console.log(response))
+.catch(error => console.log(error));
